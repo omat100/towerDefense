@@ -17,16 +17,18 @@ namespace attack {
             std::uint16_t health;
         
         protected:
-            Block(float pace, AttackType attackType, std::uint16_t health)
+            Block(float pace, std::uint16_t health, AttackType attackType)
                 : pace{pace}, attackType{attackType}, health{health} {}
             
             virtual void attack(std::uint16_t damage);
             virtual void healthLost(std::uint16_t damage);
 
-            void move();
+            void move(){} // have no logic for this will need to start with sfml to start with this
 
             int getHealth() const { return health; }
             void setHealth(int health) { this->health = health; }
+
+            AttackType getAttackType() const { return attackType; }
 
             virtual ~Block() = default;
     };
