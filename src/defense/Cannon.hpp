@@ -20,6 +20,7 @@ namespace enemy{
         {Levels::Level5, {19, 22}}
     };
     class Cannon : protected Block {
+        public:
         Cannon(Levels cannonType)
             : Block(maps[cannonType].first, DefenseType::cannon){}
         

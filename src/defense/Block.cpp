@@ -1,3 +1,6 @@
+// have not added damage logic so far
+// will add it once put it in the constructor
+
 #include "Block.hpp"
 
 // std
