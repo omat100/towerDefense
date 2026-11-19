@@ -5,7 +5,7 @@
 // std
 #include <cstdint>
 
-namespace enemy {
+namespace defense {
     class Block{
         private:
             // bool isAlive = true;

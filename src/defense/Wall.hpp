@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <cstdint>
 
-namespace enemy{
+namespace defense{
     std::unordered_map<Levels, uint16_t> strength_health_map
      = {
         {Levels::Level1, 15},

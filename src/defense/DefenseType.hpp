@@ -3,7 +3,7 @@
 // std
 #include <cstdint>
 
-namespace enemy{
+namespace defense{
     enum class DefenseType{
         wall = 0,
         cannon = 1,

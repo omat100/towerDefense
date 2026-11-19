@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <utility>
 
-namespace enemy{
+namespace defense{
     std::unordered_map<Levels, std::pair<std::uint32_t, std::uint32_t>> maps = {
         {Levels::Level1, {10, 10}}, // health, damage
         {Levels::Level2, {12, 14}},
