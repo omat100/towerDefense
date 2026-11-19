@@ -19,5 +19,7 @@ namespace enemy {
             virtual void healthLost() = 0;
             int getHealth() const { return health; }
             DefenseType getDefenseType() const {return defenseType;}
+            
+            virtual ~Block() = default;
     };
 }
