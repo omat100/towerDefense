@@ -26,8 +26,6 @@ namespace enemy{
         Wall(Levels wallType)
         : Block(strength_health_map[wallType], DefenseType::wall) {}
 
-        void attack() override {};
-        void healthLost(int damage) override;
-
+        void attack(uint16_t damage) override {};
     };
 }

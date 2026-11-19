@@ -16,8 +16,8 @@ namespace enemy {
             Block(std::uint16_t health, DefenseType defenseType)
                 : health{health}, defenseType{defenseType} {}
             
-            virtual void attack() = 0;
-            virtual void healthLost(int damage) = 0;
+            virtual void attack(uint16_t damage);
+            virtual void healthLost(uint16_t damage);
 
             int getHealth() const { return health; }
             void setHealth(int newHealth) { health = newHealth; }
