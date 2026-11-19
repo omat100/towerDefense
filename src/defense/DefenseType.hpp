@@ -8,7 +8,8 @@ namespace defense{
         wall = 0,
         cannon = 1,
         tower = 2,
-        soldier = 3
+        soldier = 3,
+        townHall = 4
     };
     enum class Levels : std::uint8_t{
         Level1,
