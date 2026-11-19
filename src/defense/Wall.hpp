@@ -27,10 +27,15 @@ namespace enemy{
         {Level3, 25},
         {Level4, 30},
         {Level5, 35},
-     }
+     };
 
     class Wall : protected Block {
+    public:
         Wall(WallType wallType)
-         : Block(strength_health_map[wallType]) {}
+        : Block(strength_health_map[wallType], DefenseType::wall) {}
+
+        void attack() override {};
+        void healthLost(int damage) override;
+
     };
 }
