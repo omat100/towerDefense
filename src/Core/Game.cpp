@@ -1,14 +1,17 @@
 #include "Game.hpp"
+#include <SFML/Graphics.hpp>
 
 Game::Game()
-    : window(sf::VideoMode(1000, 700), "Tower Defense") {
-    window.setFramerateLimit(60);
-}
+    : window(1000, 700, "My Game"),
+      renderer(window.getNativeWindow()) {}
 
 void Game::processEvents() {
+    sf::Event event;
+
     while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed)
+        if (event.type == sf::Event::Closed) {
             window.close();
+        }
     }
 }
 
@@ -17,15 +20,15 @@ void Game::update() {
 }
 
 void Game::render() {
-    window.clear(sf::Color(30, 30, 30));
+    renderer.clear(sf::Color(30, 30, 30));
 
-    sf::RectangleShape cube(sf::Vector2f(50.f, 50.f));
+    sf::RectangleShape cube({50.f, 50.f});
     cube.setFillColor(sf::Color::Blue);
     cube.setPosition(475.f, 325.f);
 
-    window.draw(cube);
+    renderer.draw(cube);
 
-    window.display();
+    renderer.display();
 }
 
 void Game::run() {
