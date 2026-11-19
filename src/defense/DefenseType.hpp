@@ -1,10 +1,20 @@
 #pragma once
 
+// std
+#include <cstdint>
+
 namespace enemy{
-    enum DefenseType{
-        wall = -1,
-        cannon = 0,
-        tower = 1,
-        soldier = 2
+    enum class DefenseType{
+        wall = 0,
+        cannon = 1,
+        tower = 2,
+        soldier = 3
+    };
+    enum class Levels : std::uint8_t{
+        Level1,
+        Level2,
+        Level3,
+        Level4,
+        Level5
     };
 }

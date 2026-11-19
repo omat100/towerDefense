@@ -12,26 +12,18 @@
 #include <cstdint>
 
 namespace enemy{
-
-    enum class WallType : std::uint8_t{
-        Level1,
-        Level2,
-        Level3,
-        Level4,
-        Level5,
-    };
-    std::unordered_map<WallType, uint16_t> strength_health_map
+    std::unordered_map<Levels, uint16_t> strength_health_map
      = {
-        {Level1, 15},
-        {Level2, 20},
-        {Level3, 25},
-        {Level4, 30},
-        {Level5, 35},
+        {Levels::Level1, 15},
+        {Levels::Level2, 20},
+        {Levels::Level3, 25},
+        {Levels::Level4, 30},
+        {Levels::Level5, 35},
      };
 
     class Wall : protected Block {
     public:
-        Wall(WallType wallType)
+        Wall(Levels wallType)
         : Block(strength_health_map[wallType], DefenseType::wall) {}
 
         void attack() override {};
