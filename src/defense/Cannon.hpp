@@ -5,6 +5,7 @@
 
 #include "DefenseType.hpp"
 #include "Block.hpp"
+#include "../Core/GameObject.hpp"
 
 // std
 #include <cstdint>
@@ -12,17 +13,19 @@
 #include <utility>
 
 namespace defense{
-    std::unordered_map<Levels, std::pair<std::uint32_t, std::uint32_t>> maps = {
+    inline std::unordered_map<Levels, std::pair<std::uint32_t, std::uint32_t>> maps = {
         {Levels::Level1, {10, 10}}, // health, damage
         {Levels::Level2, {12, 14}},
         {Levels::Level3, {14, 17}},
         {Levels::Level4, {16, 21}},
         {Levels::Level5, {19, 22}}
     };
-    class Cannon : protected Block {
+    class Cannon : protected Block, public GameObject{
         public:
-        Cannon(Levels cannonType)
-            : Block(maps[cannonType].first, DefenseType::cannon){}
-        
+        Cannon(Levels cannonType, float x, float y)
+            : Block(maps[cannonType].first, DefenseType::cannon), GameObject{x, y} {}
+        void update(float deltaTime) override {
+            // Cannon-specific update logic
+        }
     };
 }

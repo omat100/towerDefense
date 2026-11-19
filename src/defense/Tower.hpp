@@ -12,7 +12,7 @@
 #include <utility>
 
 namespace defense{
-    std::unordered_map<Levels, std::pair<std::uint32_t, std::uint32_t>> maps = {
+    inline std::unordered_map<Levels, std::pair<std::uint32_t, std::uint32_t>> maps = {
         {Levels::Level1, {10, 12}}, // health, damage
         {Levels::Level2, {14, 14}},
         {Levels::Level3, {18, 17}},

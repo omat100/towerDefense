@@ -1,6 +1,9 @@
 #include "Game.hpp"
 #include <SFML/Graphics.hpp>
 
+#include "../defense/Wall.hpp"
+#include "../defense/Cannon.hpp"
+
 Game::Game()
     : window(1000, 700, "My Game"),
       renderer(window.getNativeWindow()) {}
@@ -20,13 +23,10 @@ void Game::update() {
 }
 
 void Game::render() {
-    renderer.clear(sf::Color(30, 30, 30));
+    renderer.clear();
 
-    sf::RectangleShape cube({50.f, 50.f});
-    cube.setFillColor(sf::Color::Blue);
-    cube.setPosition(475.f, 325.f);
-
-    renderer.draw(cube);
+    renderer.draw(defense::Wall{defense::Levels::Level1, 100.f, 100.f});
+    renderer.draw(defense::Cannon{defense::Levels::Level1, 100.f, 100.f});
 
     renderer.display();
 }
