@@ -11,7 +11,7 @@ namespace defense
     class Cannon : protected Block {
         public:
         Cannon()
-            : Block(75, DefenseType::townHall){}
+            : Block(64, DefenseType::townHall){}
         
             void attack(uint16_t damage) override {};
     };
