@@ -3,3 +3,9 @@
 // invader side or defense
 
 #pragma once
+
+namespace attack {
+    class Block{
+        // no logic so far
+    };
+}
