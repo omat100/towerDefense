@@ -40,6 +40,8 @@ namespace defense {
             
             std::int16_t getHealth() const { return health; }
             void setHealth(std::int16_t newHealth) { health = newHealth; }
+
+            std::uint16_t getDamage() const { return damage; }
             
             void healthLost(std::uint16_t damage);
         };
