@@ -20,8 +20,8 @@ private:
 
     // game objects
 
-    defense::Wall wall{defense::Levels::Level1, 100.f, 100.f};
-    defense::Cannon cannon{defense::Levels::Level1, 300.f, 200.f};
+    defense::Wall wall{types::Levels::Level1, 100.f, 100.f};
+    defense::Cannon cannon{types::Levels::Level1, 300.f, 200.f};
 
 public:
     Game();

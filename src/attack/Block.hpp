@@ -6,6 +6,10 @@
 
 #include "AttackType.hpp"
 
+// types
+#include "../types/Levels.hpp"
+#include "../types/Pos.hpp"
+
 // std
 #include <cstdint>
 
@@ -15,7 +19,7 @@ namespace attack {
             float pace;
             AttackType attackType;
             std::uint16_t health;
-            Pos position;
+            types::Pos position;
         
         protected:
             Block(float pace, std::uint16_t health, AttackType attackType, float x, float y)
@@ -28,8 +32,8 @@ namespace attack {
             // movement wont be handled by block
 
             // to be handled by system
-            Pos getPosition() const { return position; }
-            void setPosition(Pos position) { this->position = position; }
+            types::Pos getPosition() const { return position; }
+            void setPosition(types::Pos position) { this->position = position; }
 
             int getHealth() const { return health; }
             void setHealth(int health) { this->health = health; }

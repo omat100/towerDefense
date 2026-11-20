@@ -2,6 +2,10 @@
 
 #include "DefenseType.hpp"
 
+// types
+#include "../types/Levels.hpp"
+#include "../types/Pos.hpp"
+
 // std
 #include <cstdint>
 
@@ -11,7 +15,7 @@ namespace defense {
             // bool isAlive = true;
             DefenseType defenseType;
             std::uint16_t health; // 0 - 65
-            Pos position;
+            types::Pos position;
 
         protected:
             Block(std::uint16_t health, DefenseType defenseType, float x, float y)
@@ -21,8 +25,8 @@ namespace defense {
             virtual void healthLost(std::uint16_t damage);
 
             // to be handled by system
-            Pos getPosition() const { return position; }
-            void setPosition(Pos position) { this->position = position; }
+            types::Pos getPosition() const { return position; }
+            void setPosition(types::Pos position) { this->position = position; }
 
             std::int16_t getHealth() const { return health; }
             void setHealth(std::int16_t newHealth) { health = newHealth; }

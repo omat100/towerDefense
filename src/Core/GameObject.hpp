@@ -1,13 +1,12 @@
 #pragma once
 
-struct Pos {
-    float x;
-    float y;
-};
+// types
+#include "../types/Levels.hpp"
+#include "../types/Pos.hpp"
 
 class GameObject {
 private:
-    Pos position;
+    types::Pos position;
 
 protected:
     GameObject(float x, float y)
@@ -16,7 +15,7 @@ protected:
 public:
     virtual ~GameObject() = default;
 
-    Pos getPosition() const {
+    types::Pos getPosition() const {
         return position;
     }
 
