@@ -11,10 +11,11 @@ namespace defense {
             // bool isAlive = true;
             DefenseType defenseType;
             std::uint16_t health; // 0 - 65
+            Pos position;
 
         protected:
-            Block(std::uint16_t health, DefenseType defenseType)
-                : health{health}, defenseType{defenseType} {}
+            Block(std::uint16_t health, DefenseType defenseType, float x, float y)
+                : health{health}, defenseType{defenseType}, position{x,y} {}
             
             virtual void attack(std::uint16_t damage);
             virtual void healthLost(std::uint16_t damage);

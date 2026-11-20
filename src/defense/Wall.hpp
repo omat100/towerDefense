@@ -24,7 +24,7 @@ namespace defense{
     class Wall : protected Block, public GameObject {
     public:
         Wall(Levels wallType, float x, float y)
-        : Block(strength_health_map[wallType], DefenseType::wall), GameObject(x,y) {}
+        : Block(strength_health_map[wallType], DefenseType::wall, x, y), GameObject(x,y) {}
 
         void attack(uint16_t damage) override {};
         void update(float deltaTime) override {

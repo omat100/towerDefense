@@ -23,7 +23,7 @@ namespace defense{
     class Cannon : protected Block, public GameObject{
         public:
         Cannon(Levels cannonType, float x, float y)
-            : Block(maps[cannonType].first, DefenseType::cannon), GameObject{x, y} {}
+            : Block(maps[cannonType].first, DefenseType::cannon, x, y), GameObject{x, y} {}
         void update(float deltaTime) override {
             // Cannon-specific update logic
         }

@@ -4,6 +4,9 @@
 #include <cstdint>
 
 namespace defense{
+    struct Pos{
+        float x, y;
+    };
     enum class DefenseType{
         wall = 0,
         cannon = 1,

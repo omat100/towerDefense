@@ -6,6 +6,8 @@
 #include "DefenseType.hpp"
 #include "Block.hpp"
 
+#include "../Core/GameObject.hpp"
+
 // std
 #include <cstdint>
 #include <unordered_map>
@@ -19,10 +21,10 @@ namespace defense{
         {Levels::Level4, {22, 18}},
         {Levels::Level5, {27, 20}}
     };
-    class Tower : protected Block {
+    class Tower : protected Block, public GameObject {
         public:
-        Tower(Levels towerType)
-            : Block(maps[towerType].first, DefenseType::tower){}
+        Tower(Levels towerType, float x, float y)
+            : Block(maps[towerType].first, DefenseType::tower, x, y), GameObject{x, y} {}
         
     };
 }
