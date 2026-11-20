@@ -1,6 +1,6 @@
 #include "Intelligence.hpp"
 
-defense::Block* Intelligence::findClosestDefense(attack::Block *attacker){
+defense::Block* systems::findClosestDefense(attack::Block *attacker){
     const types::Pos aPos = attacker->getPosition();
     if(types::defenders.empty()) throw std::runtime_error("No defense left to attack");
     float minDist = std::numeric_limits<float>::max();
@@ -14,7 +14,7 @@ defense::Block* Intelligence::findClosestDefense(attack::Block *attacker){
     return target;
 }
 
-attack::Block* Intelligence::findClosestAttack(defense::Block *defender){
+attack::Block* systems::findClosestAttack(defense::Block *defender){
     const types::Pos dPos = defender->getPosition();
     if(types::defenders.empty()) throw std::runtime_error("No attack left to defend");
     float minDist = std::numeric_limits<float>::max();

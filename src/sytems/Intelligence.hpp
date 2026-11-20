@@ -24,9 +24,8 @@
 #include <stdexcept>
 #include <limits>
 
-class Intelligence {
-
-public:
+namespace systems
+{
     defense::Block *findClosestDefense(attack::Block *attacker);
     attack::Block *findClosestAttack(defense::Block *defender);
-};
+} // namespace systems
