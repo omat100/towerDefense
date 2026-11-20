@@ -23,10 +23,10 @@ namespace attack {
             bool isAttacking = false;
         
         protected:
-            Block(float pace, std::uint16_t health, AttackType attackType, float x, float y)
+            Block(float pace, std::uint16_t health, AttackType attackType, float x, float y, std::uint16_t damage)
                 : pace{pace}, attackType{attackType}, health{health}, position{x, y} {}
             
-            virtual void attack(std::uint16_t damage);
+            virtual void attack();
             
             // void move(){} // have no logic for this will need to start with sfml to start with this
             // movement wont be handled by block
@@ -37,7 +37,7 @@ namespace attack {
             
             virtual ~Block() = default;
             
-            public:
+        public:
             types::Pos getPosition() const { return position; }
             void setPosition(types::Pos position) { this->position = position; }
             

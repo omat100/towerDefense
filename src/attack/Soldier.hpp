@@ -25,7 +25,7 @@ namespace attack{
     class Soldier : protected Block, public GameObject {
         public:
         Soldier(types::Levels cannonType, float x, float y)
-            : Block(12, maps[cannonType].first, AttackType::soldier, x, y), GameObject{x, y}{}
+            : Block(12, maps[cannonType].first, AttackType::soldier, x, y, maps[cannonType].second), GameObject{x, y}{}
         
     };
 }
