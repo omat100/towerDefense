@@ -5,6 +5,11 @@
 
 #include "Block.hpp"
 
+#include "../sytems/Combat.hpp"
+#include "../sytems/Intelligence.hpp"
+#include "../sytems/Movement.hpp"
+#include "../sytems/Vector.hpp"
+
 // std
 #include <stdexcept>
 
@@ -20,6 +25,8 @@ void defense::Block::healthLost(std::uint16_t damage){
 }
 
 void defense::Block::attack(){
-    // it makes me wonder
-    // why dont dreams come true
+    // need to add range in such cases
+    if(!isAttacking) target = systems::findClosestAttack(this);
+    isAttacking = true;
+    systems::combatDefense(target, this);
 }

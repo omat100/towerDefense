@@ -6,6 +6,8 @@
 #include "../types/Levels.hpp"
 #include "../types/Pos.hpp"
 
+#include "../attack/Block.hpp"
+
 // std
 #include <cstdint>
 
@@ -18,6 +20,7 @@ namespace defense {
             types::Pos position;
             bool isAttacking = false;
             std::uint16_t damage;
+            attack::Block* target = nullptr;
 
         protected:
             Block(std::uint16_t health, DefenseType defenseType, float x, float y, std::uint16_t damage)
