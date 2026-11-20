@@ -32,14 +32,15 @@ namespace attack {
             // movement wont be handled by block
 
             // to be handled by system
-            types::Pos getPosition() const { return position; }
-            void setPosition(types::Pos position) { this->position = position; }
-
+            
             int getHealth() const { return health; }
             void setHealth(int health) { this->health = health; }
-
+            
             AttackType getAttackType() const { return attackType; }
-
+            
             virtual ~Block() = default;
+        public:
+            types::Pos getPosition() const { return position; }
+            void setPosition(types::Pos position) { this->position = position; }
     };
 }
