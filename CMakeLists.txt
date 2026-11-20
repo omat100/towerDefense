@@ -10,7 +10,7 @@ find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 add_executable(TowerDefense
     src/main.cpp
     src/Core/Game.cpp
-    src/Core/Renderer.cpp
+    src/SFML/Renderer.cpp
     src/SFML/Window.cpp
     src/SFML/InputHandler.cpp
     src/defense/Block.cpp

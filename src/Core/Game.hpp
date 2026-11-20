@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../SFML/Window.hpp"
-#include "../Core/Renderer.hpp"
+#include "../SFML/Renderer.hpp"
 #include "../SFML/InputHandler.hpp"
 
 #include "../defense/Wall.hpp"
