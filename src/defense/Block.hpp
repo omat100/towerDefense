@@ -20,6 +20,10 @@ namespace defense {
             virtual void attack(std::uint16_t damage);
             virtual void healthLost(std::uint16_t damage);
 
+            // to be handled by system
+            Pos getPosition() const { return position; }
+            void setPosition(Pos position) { this->position = position; }
+
             std::int16_t getHealth() const { return health; }
             void setHealth(std::int16_t newHealth) { health = newHealth; }
             DefenseType getDefenseType() const {return defenseType;}

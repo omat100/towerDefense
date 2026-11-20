@@ -24,7 +24,12 @@ namespace attack {
             virtual void attack(std::uint16_t damage);
             virtual void healthLost(std::uint16_t damage);
 
-            void move(){} // have no logic for this will need to start with sfml to start with this
+            // void move(){} // have no logic for this will need to start with sfml to start with this
+            // movement wont be handled by block
+
+            // to be handled by system
+            Pos getPosition() const { return position; }
+            void setPosition(Pos position) { this->position = position; }
 
             int getHealth() const { return health; }
             void setHealth(int health) { this->health = health; }
