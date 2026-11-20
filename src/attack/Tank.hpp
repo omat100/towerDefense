@@ -3,6 +3,8 @@
 #include "Block.hpp"
 #include "AttackType.hpp"
 
+#include "../Core/GameObject.hpp"
+
 // std
 #include <cstdint>
 #include <unordered_map>
@@ -16,10 +18,10 @@ namespace attack{
         {Levels::Level4, {16, 21}},
         {Levels::Level5, {19, 22}}
     };
-    class Tank : protected Block {
+    class Tank : protected Block, public GameObject {
         public:
-        Tank(Levels cannonType)
-            : Block(12, maps[cannonType].first, AttackType::tank){}
+        Tank(Levels cannonType, float x, float y)
+            : Block(12, maps[cannonType].first, AttackType::tank, x, y), GameObject{x, y} {}
         
     };
 }

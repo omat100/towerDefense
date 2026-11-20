@@ -15,10 +15,11 @@ namespace attack {
             float pace;
             AttackType attackType;
             std::uint16_t health;
+            Pos position;
         
         protected:
-            Block(float pace, std::uint16_t health, AttackType attackType)
-                : pace{pace}, attackType{attackType}, health{health} {}
+            Block(float pace, std::uint16_t health, AttackType attackType, float x, float y)
+                : pace{pace}, attackType{attackType}, health{health}, position{x, y} {}
             
             virtual void attack(std::uint16_t damage);
             virtual void healthLost(std::uint16_t damage);

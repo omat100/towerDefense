@@ -1,6 +1,9 @@
 #pragma once
 
 namespace attack{
+    struct Pos{
+        float x, y;
+    };
     enum class AttackType{
         soldier,
         tank,
