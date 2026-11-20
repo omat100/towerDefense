@@ -19,7 +19,7 @@ void defense::Block::healthLost(std::uint16_t damage){
     else setHealth(health - damage);
 }
 
-void defense::Block::attack(std::uint16_t damage){
+void defense::Block::attack(){
     // it makes me wonder
     // why dont dreams come true
 }

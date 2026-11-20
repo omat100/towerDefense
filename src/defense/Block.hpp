@@ -17,12 +17,13 @@ namespace defense {
             std::uint16_t health; // 0 - 65
             types::Pos position;
             bool isAttacking = false;
+            std::uint16_t damage;
 
         protected:
-            Block(std::uint16_t health, DefenseType defenseType, float x, float y)
-                : health{health}, defenseType{defenseType}, position{x,y} {}
+            Block(std::uint16_t health, DefenseType defenseType, float x, float y, std::uint16_t damage)
+                : health{health}, defenseType{defenseType}, position{x,y}, damage{damage} {}
             
-            virtual void attack(std::uint16_t damage);
+            virtual void attack();
             
             DefenseType getDefenseType() const {return defenseType;}
             

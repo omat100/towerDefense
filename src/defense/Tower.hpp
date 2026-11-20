@@ -8,23 +8,25 @@
 
 #include "../Core/GameObject.hpp"
 
+#include "../types/Levels.hpp"
+
 // std
 #include <cstdint>
 #include <unordered_map>
 #include <utility>
 
 namespace defense{
-    inline std::unordered_map<Levels, std::pair<std::uint32_t, std::uint32_t>> maps = {
-        {Levels::Level1, {10, 12}}, // health, damage
-        {Levels::Level2, {14, 14}},
-        {Levels::Level3, {18, 17}},
-        {Levels::Level4, {22, 18}},
-        {Levels::Level5, {27, 20}}
+    inline std::unordered_map<types::Levels, std::pair<std::uint32_t, std::uint32_t>> maps = {
+        {types::Levels::Level1, {10, 12}}, // health, damage
+        {types::Levels::Level2, {14, 14}},
+        {types::Levels::Level3, {18, 17}},
+        {types::Levels::Level4, {22, 18}},
+        {types::Levels::Level5, {27, 20}}
     };
     class Tower : protected Block, public GameObject {
         public:
-        Tower(Levels towerType, float x, float y)
-            : Block(maps[towerType].first, DefenseType::tower, x, y), GameObject{x, y} {}
+        Tower(types::Levels towerType, float x, float y)
+            : Block(maps[towerType].first, DefenseType::tower, x, y, maps[towerType].second), GameObject{x, y} {}
         
     };
 }
