@@ -9,7 +9,10 @@
 #include <stdexcept>
 
 void defense::Block::healthLost(std::uint16_t damage){
-    if(health == 0) return; // had to make the block dissapear 
+    if(health == 0){
+        isAttacking = false;
+        return;
+    } // had to make the block dissapear 
     // but aint doing graphics till now
     if(health < 0) throw std::runtime_error("Leaks in health");
     if(health - damage <= 0) setHealth(0);

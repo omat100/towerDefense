@@ -7,6 +7,7 @@ defense::Block* Intelligence::findClosestDefense(attack::Block *attacker){
     defense::Block *target = defenders[0];
     for(defense::Block *defender: defenders){
         if(systems::distance(aPos, defender->getPosition()) < minDist){
+            minDist = systems::distance(aPos, defender->getPosition());
             target = defender;
         }
     }
@@ -20,6 +21,7 @@ attack::Block* Intelligence::findClosestAttack(defense::Block *defender){
     attack::Block *target = attackers[0];
     for(attack::Block *attacker: attackers){
         if(systems::distance(dPos, attacker->getPosition()) < minDist){
+            minDist = systems::distance(dPos, attacker->getPosition());
             target = attacker;
         }
     }
