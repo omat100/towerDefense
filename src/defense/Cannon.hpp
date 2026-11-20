@@ -17,7 +17,7 @@
 #include <utility>
 
 namespace defense{
-    inline std::unordered_map<types::Levels, std::pair<std::uint32_t, std::uint32_t>> maps = {
+    inline std::unordered_map<types::Levels, std::pair<std::uint32_t, std::uint32_t>> cannonMaps = {
         {types::Levels::Level1, {10, 10}}, // health, damage
         {types::Levels::Level2, {12, 14}},
         {types::Levels::Level3, {14, 17}},
@@ -26,8 +26,11 @@ namespace defense{
     };
     class Cannon : protected Block, public GameObject{
         public:
+        using Block::getPosition;
+        using Block::setPosition;
+
         Cannon(types::Levels cannonType, float x, float y)
-            : Block(maps[cannonType].first, DefenseType::cannon, x, y, maps[cannonType].second), GameObject{x, y} {}
+            : Block(cannonMaps[cannonType].first, DefenseType::cannon, x, y, cannonMaps[cannonType].second), GameObject{x, y} {}
         void update(float deltaTime) override {
             // Cannon-specific update logic
         }

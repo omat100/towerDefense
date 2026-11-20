@@ -16,7 +16,7 @@
 #include <utility>
 
 namespace defense{
-    inline std::unordered_map<types::Levels, std::pair<std::uint32_t, std::uint32_t>> maps = {
+    inline std::unordered_map<types::Levels, std::pair<std::uint32_t, std::uint32_t>> towerMaps = {
         {types::Levels::Level1, {10, 12}}, // health, damage
         {types::Levels::Level2, {14, 14}},
         {types::Levels::Level3, {18, 17}},
@@ -26,7 +26,7 @@ namespace defense{
     class Tower : protected Block, public GameObject {
         public:
         Tower(types::Levels towerType, float x, float y)
-            : Block(maps[towerType].first, DefenseType::tower, x, y, maps[towerType].second), GameObject{x, y} {}
+            : Block(towerMaps[towerType].first, DefenseType::tower, x, y, towerMaps[towerType].second), GameObject{x, y} {}
         
     };
 }

@@ -5,6 +5,8 @@
 
 #include "Block.hpp"
 
+#include "../attack/Block.hpp"
+
 #include "../sytems/Combat.hpp"
 #include "../sytems/Intelligence.hpp"
 #include "../sytems/Movement.hpp"

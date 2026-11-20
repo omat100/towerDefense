@@ -5,7 +5,7 @@ namespace types {
     {
         float x, y;
     };
-    Pos operator+(const Pos& a, const Pos&b){
+    inline Pos operator+(const Pos& a, const Pos&b){
         return Pos{a.x + b.x, b.y + a.y};
     }
 }

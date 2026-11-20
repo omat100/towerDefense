@@ -26,6 +26,9 @@ namespace defense{
 
     class Wall : protected Block, public GameObject {
     public:
+        using Block::getPosition;
+        using Block::setPosition;
+
         Wall(types::Levels wallType, float x, float y)
         : Block(strength_health_map[wallType], DefenseType::wall, x, y, 0), GameObject(x,y) {}
 

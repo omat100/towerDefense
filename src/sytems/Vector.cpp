@@ -19,6 +19,6 @@ namespace systems{
         return types::Pos{directionVector.x/distance(directionVector), directionVector.y/distance(directionVector)};
     }
     types::Pos scale(types::Pos vector, float scalar){
-        return types::Pos(vector.x*scalar, vector.y*scalar);
+        return types::Pos{vector.x*scalar, vector.y*scalar};
     }
 }

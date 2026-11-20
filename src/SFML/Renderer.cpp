@@ -12,7 +12,7 @@ void Renderer::display() {
 }
 
 void Renderer::draw(const defense::Wall& wall) {
-    Pos pos = wall.getPosition();
+    types::Pos pos = wall.getPosition();
 
     sf::RectangleShape shape({100.f, 100.f});
     shape.setPosition(pos.x, pos.y);
@@ -22,7 +22,7 @@ void Renderer::draw(const defense::Wall& wall) {
 }
 
 void Renderer::draw(const defense::Cannon& cannon) {
-    Pos pos = cannon.getPosition();
+    types::Pos pos = cannon.getPosition();
 
     sf::CircleShape shape(25.f);
     shape.setPosition(pos.x, pos.y);

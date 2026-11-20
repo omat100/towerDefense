@@ -25,8 +25,8 @@ void Game::update() {
 void Game::render() {
     renderer.clear();
 
-    renderer.draw(defense::Wall{defense::Levels::Level1, 100.f, 100.f});
-    renderer.draw(defense::Cannon{defense::Levels::Level1, 100.f, 100.f});
+    renderer.draw(defense::Wall{types::Levels::Level1, 100.f, 100.f});
+    renderer.draw(defense::Cannon{types::Levels::Level1, 100.f, 100.f});
 
     renderer.display();
 }

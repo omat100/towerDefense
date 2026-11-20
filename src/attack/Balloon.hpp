@@ -15,7 +15,7 @@
 #include <utility>
 
 namespace attack{
-    std::unordered_map<types::Levels, std::pair<std::uint32_t, std::uint32_t>> maps = {
+    inline std::unordered_map<types::Levels, std::pair<std::uint32_t, std::uint32_t>> balloonMaps = {
         {types::Levels::Level1, {10, 10}}, // health, damage
         {types::Levels::Level2, {12, 14}},
         {types::Levels::Level3, {14, 17}},
@@ -25,7 +25,7 @@ namespace attack{
     class Balloon : protected Block, public GameObject {
         public:
         Balloon(types::Levels cannonType, float x, float y)
-            : Block(12, maps[cannonType].first, AttackType::balloon, x, y, maps[cannonType].second), GameObject{x,y}{}
+            : Block(12, balloonMaps[cannonType].first, AttackType::balloon, x, y, balloonMaps[cannonType].second), GameObject{x,y}{}
         
     };
 }

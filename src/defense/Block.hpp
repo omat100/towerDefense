@@ -6,7 +6,8 @@
 #include "../types/Levels.hpp"
 #include "../types/Pos.hpp"
 
-#include "../attack/Block.hpp"
+// forward declaration to avoid a circular include
+namespace attack { class Block; }
 
 // std
 #include <cstdint>

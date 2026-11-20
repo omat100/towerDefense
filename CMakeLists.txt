@@ -14,6 +14,12 @@ add_executable(TowerDefense
     src/SFML/Window.cpp
     src/SFML/InputHandler.cpp
     src/defense/Block.cpp
+    src/attack/Block.cpp
+    src/sytems/Intelligence.cpp
+    src/sytems/Combat.cpp
+    src/sytems/Movement.cpp
+    src/sytems/Vector.cpp
+    src/types/GameObjects.cpp
 )
 
 target_link_libraries(TowerDefense PRIVATE
