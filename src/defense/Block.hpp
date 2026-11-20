@@ -16,6 +16,7 @@ namespace defense {
             DefenseType defenseType;
             std::uint16_t health; // 0 - 65
             types::Pos position;
+            bool isAttacking = false;
 
         protected:
             Block(std::uint16_t health, DefenseType defenseType, float x, float y)
@@ -35,5 +36,9 @@ namespace defense {
             // to be handled by system
             types::Pos getPosition() const { return position; }
             void setPosition(types::Pos position) { this->position = position; }
+
+            // for the combat and intelligence
+            bool getAttackStatus() const { return isAttacking; }
+            void setAttackStatus(bool isAttacking) { this->isAttacking = isAttacking; }
     };
 }

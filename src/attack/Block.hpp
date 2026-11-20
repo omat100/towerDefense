@@ -20,6 +20,7 @@ namespace attack {
             AttackType attackType;
             std::uint16_t health;
             types::Pos position;
+            bool isAttacking = false;
         
         protected:
             Block(float pace, std::uint16_t health, AttackType attackType, float x, float y)
@@ -39,8 +40,12 @@ namespace attack {
             AttackType getAttackType() const { return attackType; }
             
             virtual ~Block() = default;
+        
         public:
             types::Pos getPosition() const { return position; }
             void setPosition(types::Pos position) { this->position = position; }
+
+            bool getAttackStatus() const { return isAttacking; }
+            void setAttackStatus(bool isAttacking) { this->isAttacking = isAttacking; }
     };
 }
