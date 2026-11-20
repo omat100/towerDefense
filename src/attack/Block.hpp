@@ -27,25 +27,26 @@ namespace attack {
                 : pace{pace}, attackType{attackType}, health{health}, position{x, y} {}
             
             virtual void attack(std::uint16_t damage);
-            virtual void healthLost(std::uint16_t damage);
-
+            
             // void move(){} // have no logic for this will need to start with sfml to start with this
             // movement wont be handled by block
-
-            // to be handled by system
             
-            int getHealth() const { return health; }
-            void setHealth(int health) { this->health = health; }
+            // to be handled by system
             
             AttackType getAttackType() const { return attackType; }
             
             virtual ~Block() = default;
-        
-        public:
+            
+            public:
             types::Pos getPosition() const { return position; }
             void setPosition(types::Pos position) { this->position = position; }
-
+            
             bool getAttackStatus() const { return isAttacking; }
             void setAttackStatus(bool isAttacking) { this->isAttacking = isAttacking; }
-    };
+            
+            int getHealth() const { return health; }
+            void setHealth(int health) { this->health = health; }
+            
+            void healthLost(std::uint16_t damage);
+        };
 }
