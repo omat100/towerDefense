@@ -12,6 +12,7 @@
 
 // types
 #include "../types/Pos.hpp"
+#include "../types/GameObjects.hpp"
 
 #include "../attack/Block.hpp"
 #include "../defense/Block.hpp"
@@ -24,16 +25,8 @@
 #include <limits>
 
 class Intelligence {
-private:
-    std::vector<attack::Block*>& attackers;
-    std::vector<defense::Block*>& defenders;
 
 public:
-    Intelligence(
-        std::vector<attack::Block*>& attackers,
-        std::vector<defense::Block*>& defenders
-    ) : attackers(attackers), defenders(defenders) {}
-
     defense::Block *findClosestDefense(attack::Block *attacker);
     attack::Block *findClosestAttack(defense::Block *defender);
 };
