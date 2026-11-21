@@ -14,6 +14,7 @@
 
 // std
 #include <stdexcept>
+#include <iostream>
 
 void defense::Block::healthLost(std::uint16_t damage){
     if(health == 0){
@@ -23,12 +24,16 @@ void defense::Block::healthLost(std::uint16_t damage){
     // but aint doing graphics till now
     if(health < 0) throw std::runtime_error("Leaks in health");
     if(health - damage <= 0) setHealth(0);
-    else setHealth(health - damage);
+    else {
+        setHealth(health - damage);
+        std::cout << "damage is being taken" << std::endl;
+    }
 }
 
 void defense::Block::attack(){
     // need to add range in such cases
     if(!isAttacking) target = systems::findClosestAttack(this);
     isAttacking = true;
+    std::cout << "The attack is being done" << std::endl;
     systems::combatDefense(target, this);
 }
