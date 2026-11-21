@@ -10,49 +10,61 @@
 #include "../types/Levels.hpp"
 #include "../types/Pos.hpp"
 
-#include "../defense/Block.hpp"
+#include "../Core/GameObject.hpp"
+
+// forward declaration to avoid a circular include
+namespace defense { class Block; }
 
 // std
 #include <cstdint>
 
 namespace attack {
-    class Block{
+    class Block : public GameObject {
         private:
-            float pace;
+            float pace;          // pixels per second
             AttackType attackType;
-            std::uint16_t health;
-            types::Pos position;
+            int health;
+            int maxHealth;
+            int damage;
+            float range;
+            float attackInterval;
+            float attackTimer = 0.f;
             bool isAttacking = false;
-            std::uint16_t damage;
             defense::Block *target = nullptr;
-        
-        protected:
-            Block(float pace, std::uint16_t health, AttackType attackType, float x, float y, std::uint16_t damage)
-                : pace{pace}, attackType{attackType}, health{health}, position{x, y}, damage{damage} {}
-            
-            virtual void attack();
-            
-            // void move(){} // have no logic for this will need to start with sfml to start with this
-            // movement wont be handled by block
-            
-            // to be handled by system
-            
-            AttackType getAttackType() const { return attackType; }
-            
-            virtual ~Block() = default;
-            
-        public:
-            types::Pos getPosition() const { return position; }
-            void setPosition(types::Pos position) { this->position = position; }
-            
-            bool getAttackStatus() const { return isAttacking; }
-            void setAttackStatus(bool isAttacking) { this->isAttacking = isAttacking; }
-            
-            int getHealth() const { return health; }
-            void setHealth(int health) { this->health = health; }
 
-            std::uint16_t getDamage() const { return damage; }
-            
-            void healthLost(std::uint16_t damage);
+        protected:
+            Block(float pace, int health, AttackType attackType, float x, float y,
+                  int damage, float range, float attackInterval)
+                : GameObject{x, y}, pace{pace}, attackType{attackType}, health{health},
+                  maxHealth{health}, damage{damage}, range{range},
+                  attackInterval{attackInterval} {}
+
+            virtual void attack(float deltaTime);
+
+        public:
+            ~Block() override = default;
+
+            // Driven by GameWorld every frame.
+            void update(float deltaTime) override;
+
+            AttackType getAttackType() const { return attackType; }
+
+            int getHealth() const { return health; }
+            int getMaxHealth() const { return maxHealth; }
+            void setHealth(int newHealth) { health = newHealth; }
+            bool isAlive() const { return health > 0; }
+
+            int getDamage() const { return damage; }
+            float getPace() const { return pace; }
+            float getRange() const { return range; }
+
+            bool getAttackStatus() const { return isAttacking; }
+            void setAttackStatus(bool status) { isAttacking = status; }
+
+            defense::Block *getTarget() const { return target; }
+            void setTarget(defense::Block *newTarget) { target = newTarget; }
+            void clearTarget() { target = nullptr; isAttacking = false; }
+
+            void healthLost(int damage);
         };
 }

@@ -4,15 +4,15 @@
 
 #include "Block.hpp"
 #include "DefenseType.hpp"
-#include "../Core/GameObject.hpp"
 
 namespace defense
 {
-    class TownHall : protected Block, public GameObject{
+    class TownHall : public Block {
         public:
         TownHall(float x, float y)
-            : Block(64, DefenseType::townHall, x, y, 0), GameObject{x, y} {}
-        
-            void attack() override {};
+            : Block(64, DefenseType::townHall, x, y, 0, 0.f, 0.f) {}
+
+        // TownHall does not attack.
+        void attack(float) override {}
     };
 } // namespace defense

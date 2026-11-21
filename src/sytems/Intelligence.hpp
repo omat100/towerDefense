@@ -21,7 +21,6 @@
 
 // std
 #include <vector>
-#include <stdexcept>
 #include <limits>
 
 namespace systems

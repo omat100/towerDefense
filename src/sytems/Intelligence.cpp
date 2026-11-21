@@ -1,29 +1,41 @@
 #include "Intelligence.hpp"
 
 defense::Block* systems::findClosestDefense(attack::Block *attacker){
+    if(!attacker) return nullptr;
+
     const types::Pos aPos = attacker->getPosition();
-    if(types::defenders.empty()) throw std::runtime_error("No defense left to attack");
+    defense::Block *target = nullptr;
     float minDist = std::numeric_limits<float>::max();
-    defense::Block *target = types::defenders[0];
+
     for(defense::Block *defender: types::defenders){
-        if(systems::distance(aPos, defender->getPosition()) < minDist){
-            minDist = systems::distance(aPos, defender->getPosition());
+        if(!defender || !defender->isAlive()) continue;
+
+        const float dist = systems::distance(aPos, defender->getPosition());
+        if(dist < minDist){
+            minDist = dist;
             target = defender;
         }
     }
+
     return target;
 }
 
 attack::Block* systems::findClosestAttack(defense::Block *defender){
+    if(!defender) return nullptr;
+
     const types::Pos dPos = defender->getPosition();
-    if(types::defenders.empty()) throw std::runtime_error("No attack left to defend");
+    attack::Block *target = nullptr;
     float minDist = std::numeric_limits<float>::max();
-    attack::Block *target = types::attackers[0];
+
     for(attack::Block *attacker: types::attackers){
-        if(systems::distance(dPos, attacker->getPosition()) < minDist){
-            minDist = systems::distance(dPos, attacker->getPosition());
+        if(!attacker || !attacker->isAlive()) continue;
+
+        const float dist = systems::distance(dPos, attacker->getPosition());
+        if(dist < minDist){
+            minDist = dist;
             target = attacker;
         }
     }
+
     return target;
 }

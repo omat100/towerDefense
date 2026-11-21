@@ -1,33 +1,50 @@
 #include "Block.hpp"
 
+#include "../defense/Block.hpp"
 
 // systems
 #include "../sytems/Combat.hpp"
 #include "../sytems/Intelligence.hpp"
 #include "../sytems/Movement.hpp"
+#include "../sytems/Vector.hpp"
 
-// std
-#include <iostream>
+void attack::Block::healthLost(int damage){
+    if(health <= 0){
+        clearTarget();
+        return;
+    }
 
+    health -= damage;
+    if(health < 0) health = 0;
 
-void attack::Block::healthLost(std::uint16_t damage){
-    if(health == 0){
+    if(health == 0) clearTarget();
+}
+
+void attack::Block::update(float deltaTime){
+    if(!isAlive()) return;
+    attack(deltaTime);
+}
+
+void attack::Block::attack(float deltaTime){
+    if(!isAlive()) return;
+    if(!target || !target->isAlive()){
+        target = systems::findClosestDefense(this);
+        attackTimer = 0.f;
+    }
+    if(!target){
         isAttacking = false;
         return;
     }
-    if(health - damage <= 0) setHealth(0);
-    else setHealth(health - damage);
-}
-
-void attack::Block::attack(){
-    if(!isAttacking || !target){
-        target = systems::findClosestDefense(this);
-        systems::move(target, this, pace);
-        std::cout << "The block is moving not attacking" << std::endl;
+    const float dist = systems::distance(getPosition(), target->getPosition());
+    if(dist > range){
+        isAttacking = false;
+        systems::move(target, this, pace, deltaTime);
+        return;
     }
-    else{
-        isAttacking = true;
+    isAttacking = true;
+    attackTimer += deltaTime;
+    if(attackTimer >= attackInterval){
+        attackTimer = 0.f;
         systems::combatAttack(this, target);
-        std::cout << "The block is attacking" << std::endl;
     }
 }

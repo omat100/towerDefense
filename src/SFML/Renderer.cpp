@@ -1,5 +1,28 @@
 #include "Renderer.hpp"
 
+// std
+#include <algorithm>
+
+namespace {
+    void drawHealthBar(sf::RenderWindow &window, types::Pos pos, float width,
+                       float yOffset, int health, int maxHealth){
+        if(maxHealth <= 0) return;
+
+        const float ratio = std::clamp(
+            static_cast<float>(health) / static_cast<float>(maxHealth), 0.f, 1.f);
+
+        sf::RectangleShape background({width, 4.f});
+        background.setPosition(pos.x - width / 2.f, pos.y + yOffset);
+        background.setFillColor(sf::Color(30, 30, 30));
+        window.draw(background);
+
+        sf::RectangleShape fill({width * ratio, 4.f});
+        fill.setPosition(pos.x - width / 2.f, pos.y + yOffset);
+        fill.setFillColor(sf::Color(70, 210, 90));
+        window.draw(fill);
+    }
+}
+
 Renderer::Renderer(sf::RenderWindow& window)
     : window(window) {}
 
@@ -11,22 +34,107 @@ void Renderer::display() {
     window.display();
 }
 
-void Renderer::draw(const defense::Wall& wall) {
-    types::Pos pos = wall.getPosition();
+void Renderer::draw(const attack::Block& unit) {
+    const types::Pos pos = unit.getPosition();
 
-    sf::RectangleShape shape({100.f, 100.f});
+    float radius = 9.f;
+    sf::Color color = sf::Color(80, 200, 120);
+
+    switch (unit.getAttackType()) {
+        case attack::AttackType::soldier:
+            radius = 9.f;
+            color = sf::Color(80, 200, 120);
+            break;
+        case attack::AttackType::tank:
+            radius = 13.f;
+            color = sf::Color(210, 140, 40);
+            break;
+        case attack::AttackType::balloon:
+            radius = 10.f;
+            color = sf::Color(120, 180, 255);
+            break;
+    }
+
+    sf::CircleShape shape(radius);
+    shape.setOrigin(radius, radius);
     shape.setPosition(pos.x, pos.y);
-    shape.setFillColor(sf::Color::Blue);
+    shape.setFillColor(color);
+    window.draw(shape);
 
-    window.draw(shape); // Pass the SFML shape, NOT wall
+    drawHealthBar(window, pos, radius * 2.f, -radius - 10.f,
+                  unit.getHealth(), unit.getMaxHealth());
 }
 
-void Renderer::draw(const defense::Cannon& cannon) {
-    types::Pos pos = cannon.getPosition();
+void Renderer::draw(const defense::Block& unit) {
+    const types::Pos pos = unit.getPosition();
 
-    sf::CircleShape shape(25.f);
-    shape.setPosition(pos.x, pos.y);
-    shape.setFillColor(sf::Color::Red);
+    float halfWidth = 40.f;
+    float yOffset = -50.f;
 
-    window.draw(shape); // Pass the SFML shape, NOT cannon
+    switch (unit.getDefenseType()) {
+        case defense::DefenseType::wall: {
+            const float size = 80.f;
+            sf::RectangleShape shape({size, size});
+            shape.setOrigin(size / 2.f, size / 2.f);
+            shape.setPosition(pos.x, pos.y);
+            shape.setFillColor(sf::Color(60, 90, 200));
+            window.draw(shape);
+
+            halfWidth = size / 2.f;
+            yOffset = -size / 2.f - 10.f;
+            break;
+        }
+        case defense::DefenseType::cannon: {
+            const float radius = 25.f;
+            sf::CircleShape shape(radius);
+            shape.setOrigin(radius, radius);
+            shape.setPosition(pos.x, pos.y);
+            shape.setFillColor(sf::Color(210, 60, 60));
+            window.draw(shape);
+
+            halfWidth = radius;
+            yOffset = -radius - 10.f;
+            break;
+        }
+        case defense::DefenseType::tower: {
+            const float size = 60.f;
+            sf::RectangleShape shape({size, size});
+            shape.setOrigin(size / 2.f, size / 2.f);
+            shape.setPosition(pos.x, pos.y);
+            shape.setFillColor(sf::Color(150, 80, 200));
+            window.draw(shape);
+
+            halfWidth = size / 2.f;
+            yOffset = -size / 2.f - 10.f;
+            break;
+        }
+        case defense::DefenseType::soldier: {
+            const float radius = 12.f;
+            sf::CircleShape shape(radius);
+            shape.setOrigin(radius, radius);
+            shape.setPosition(pos.x, pos.y);
+            shape.setFillColor(sf::Color(90, 160, 220));
+            window.draw(shape);
+
+            halfWidth = radius;
+            yOffset = -radius - 10.f;
+            break;
+        }
+        case defense::DefenseType::townHall: {
+            const float width = 120.f;
+            const float height = 80.f;
+            sf::RectangleShape shape({width, height});
+            shape.setOrigin(width / 2.f, height / 2.f);
+            shape.setPosition(pos.x, pos.y);
+            shape.setFillColor(sf::Color(220, 190, 70));
+            window.draw(shape);
+
+            halfWidth = width / 2.f;
+            yOffset = -height / 2.f - 10.f;
+            break;
+        }
+    }
+
+    drawHealthBar(window, pos, halfWidth * 2.f, yOffset,
+                  unit.getHealth(), unit.getMaxHealth());
 }

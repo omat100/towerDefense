@@ -1,8 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "../defense/Wall.hpp"
-#include "../defense/Cannon.hpp"
+
+#include "../attack/Block.hpp"
+#include "../defense/Block.hpp"
 
 class Renderer {
 private:
@@ -14,6 +15,6 @@ public:
     void clear(const sf::Color& color = sf::Color::Black);
     void display();
 
-    void draw(const defense::Wall& wall);
-    void draw(const defense::Cannon& cannon);
+    void draw(const attack::Block& unit);
+    void draw(const defense::Block& unit);
 };

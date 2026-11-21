@@ -4,24 +4,18 @@
 #include "../SFML/Renderer.hpp"
 #include "../SFML/InputHandler.hpp"
 
-#include "../defense/Wall.hpp"
-#include "../defense/Cannon.hpp"
-#include "../defense/DefenseType.hpp"
+#include "GameWorld.hpp"
 
 class Game {
 private:
     Window window;
     Renderer renderer;
     InputHandler input;
+    GameWorld world;
 
     void processEvents();
-    void update();
+    void update(float deltaTime);
     void render();
-
-    // game objects
-
-    defense::Wall wall{types::Levels::Level1, 100.f, 100.f};
-    defense::Cannon cannon{types::Levels::Level1, 300.f, 200.f};
 
 public:
     Game();

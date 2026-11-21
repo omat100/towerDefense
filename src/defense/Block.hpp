@@ -6,6 +6,8 @@
 #include "../types/Levels.hpp"
 #include "../types/Pos.hpp"
 
+#include "../Core/GameObject.hpp"
+
 // forward declaration to avoid a circular include
 namespace attack { class Block; }
 
@@ -13,40 +15,51 @@ namespace attack { class Block; }
 #include <cstdint>
 
 namespace defense {
-    class Block{
+    class Block : public GameObject {
         private:
-            // bool isAlive = true;
             DefenseType defenseType;
-            std::uint16_t health; // 0 - 65
-            types::Pos position;
+            int health;
+            int maxHealth;
+            int damage;
+            float range;
+            float attackInterval;
+            float attackTimer = 0.f;
             bool isAttacking = false;
-            std::uint16_t damage;
-            attack::Block* target = nullptr;
+            attack::Block *target = nullptr;
 
         protected:
-            Block(std::uint16_t health, DefenseType defenseType, float x, float y, std::uint16_t damage)
-                : health{health}, defenseType{defenseType}, position{x,y}, damage{damage} {}
-            
-            virtual void attack();
-            
-            DefenseType getDefenseType() const {return defenseType;}
-            
-            virtual ~Block() = default;
-            
-            public:
-            // to be handled by system
-            types::Pos getPosition() const { return position; }
-            void setPosition(types::Pos position) { this->position = position; }
-            
+            Block(int health, DefenseType defenseType, float x, float y, int damage,
+                  float range, float attackInterval)
+                : GameObject{x, y}, defenseType{defenseType}, health{health},
+                  maxHealth{health}, damage{damage}, range{range},
+                  attackInterval{attackInterval} {}
+
+            virtual void attack(float deltaTime);
+
+        public:
+            ~Block() override = default;
+
+            // Driven by GameWorld every frame.
+            void update(float deltaTime) override;
+
+            DefenseType getDefenseType() const { return defenseType; }
+
+            int getHealth() const { return health; }
+            int getMaxHealth() const { return maxHealth; }
+            void setHealth(int newHealth) { health = newHealth; }
+            bool isAlive() const { return health > 0; }
+
+            int getDamage() const { return damage; }
+            float getRange() const { return range; }
+
             // for the combat and intelligence
             bool getAttackStatus() const { return isAttacking; }
-            void setAttackStatus(bool isAttacking) { this->isAttacking = isAttacking; }
-            
-            std::int16_t getHealth() const { return health; }
-            void setHealth(std::int16_t newHealth) { health = newHealth; }
+            void setAttackStatus(bool status) { isAttacking = status; }
 
-            std::uint16_t getDamage() const { return damage; }
-            
-            void healthLost(std::uint16_t damage);
+            attack::Block *getTarget() const { return target; }
+            void setTarget(attack::Block *newTarget) { target = newTarget; }
+            void clearTarget() { target = nullptr; isAttacking = false; }
+
+            void healthLost(int damage);
         };
 }

@@ -16,7 +16,9 @@ namespace systems{
         return std::sqrtf(directionVector.x * directionVector.x + directionVector.y*directionVector.y);
     }
     types::Pos unitVector(types::Pos directionVector){
-        return types::Pos{directionVector.x/distance(directionVector), directionVector.y/distance(directionVector)};
+        const float length = distance(directionVector);
+        if(length <= 0.0001f) return types::Pos{0.f, 0.f};
+        return types::Pos{directionVector.x/length, directionVector.y/length};
     }
     types::Pos scale(types::Pos vector, float scalar){
         return types::Pos{vector.x*scalar, vector.y*scalar};

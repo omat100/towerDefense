@@ -1,12 +1,11 @@
 // This is the file where wall is defined
-// a wall will be of a particular level 
+// a wall will be of a particular level
 // According to that level its health will be given
 
 #pragma once
 
 #include "DefenseType.hpp"
 #include "Block.hpp"
-#include "../Core/GameObject.hpp"
 
 // std
 #include <unordered_map>
@@ -15,7 +14,7 @@
 #include "../types/Levels.hpp"
 
 namespace defense{
-    inline std::unordered_map<types::Levels, uint16_t> strength_health_map
+    inline std::unordered_map<types::Levels, std::uint16_t> strength_health_map
      = {
         {types::Levels::Level1, 15},
         {types::Levels::Level2, 20},
@@ -24,17 +23,13 @@ namespace defense{
         {types::Levels::Level5, 35},
      };
 
-    class Wall : protected Block, public GameObject {
+    class Wall : public Block {
     public:
-        using Block::getPosition;
-        using Block::setPosition;
-
         Wall(types::Levels wallType, float x, float y)
-        : Block(strength_health_map[wallType], DefenseType::wall, x, y, 0), GameObject(x,y) {}
+        : Block(static_cast<int>(strength_health_map[wallType]),
+                DefenseType::wall, x, y, 0, 0.f, 0.f) {}
 
-        void attack() override {};
-        void update(float deltaTime) override {
-            // Wall-specific update logic
-        }
+        // Walls do not attack.
+        void attack(float) override {}
     };
 }

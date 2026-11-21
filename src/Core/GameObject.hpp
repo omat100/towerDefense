@@ -23,5 +23,9 @@ public:
         position = {x, y};
     }
 
+    void setPosition(types::Pos newPosition) {
+        position = newPosition;
+    }
+
     virtual void update(float deltaTime) = 0;
 };
