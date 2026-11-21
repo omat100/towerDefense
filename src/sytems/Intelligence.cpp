@@ -56,7 +56,7 @@ std::vector<defense::Block*> systems::findDefenseRadius(attack::Block *attacker,
 }
 
 
-std::vector<attack::Block*> systems::findDefenseRadius(defense::Block *defender, float radius){
+std::vector<attack::Block*> systems::findAttackRadius(defense::Block *defender, float radius){
     if(!defender) return {};
     
     std::vector<attack::Block*> allTargets;
