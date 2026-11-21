@@ -3,6 +3,7 @@
 namespace attack{
     enum class AttackType{
         soldier,
+        spells,
         tank,
         balloon
     };

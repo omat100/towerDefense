@@ -27,4 +27,7 @@ namespace systems
 {
     defense::Block *findClosestDefense(attack::Block *attacker);
     attack::Block *findClosestAttack(defense::Block *defender);
+    std::vector<defense::Block*> findDefenseRadius(attack::Block *attacker, float radius);
+    // maybe used for motors
+    std::vector<attack::Block*> findDefenseRadius(defense::Block *defender, float radius);
 } // namespace systems
