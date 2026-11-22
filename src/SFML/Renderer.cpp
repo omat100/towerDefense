@@ -139,7 +139,7 @@ void Renderer::draw(const defense::Block& unit) {
                   unit.getHealth(), unit.getMaxHealth());
 }
 
-void Renderer::drawGhost(defense::DefenseType type, types::Pos pos, bool valid) {
+void Renderer::drawGhost(defense::Block type, types::Pos pos, bool valid) {
     auto col = [&](sf::Color c) {
         if (!valid) c = sf::Color(255, 60, 60);
         c.a = 130;
@@ -160,7 +160,7 @@ void Renderer::drawGhost(defense::DefenseType type, types::Pos pos, bool valid) 
         window.draw(s);
     };
 
-    switch (type) {
+    switch (type.getDefenseType()) {
         case defense::DefenseType::wall:     rect(80.f, 80.f, sf::Color(60, 90, 200)); break;
         case defense::DefenseType::cannon:   circle(25.f, sf::Color(210, 60, 60));     break;
         case defense::DefenseType::tower:    rect(60.f, 60.f, sf::Color(150, 80, 200)); break;
@@ -169,10 +169,10 @@ void Renderer::drawGhost(defense::DefenseType type, types::Pos pos, bool valid) 
     }
 }
 
-void Renderer::drawGhost(attack::AttackType type, types::Pos pos, bool valid) {
+void Renderer::drawGhost(attack::Block type, types::Pos pos, bool valid) {
     float r = 9.f;
     sf::Color c(80, 200, 120);
-    switch (type) {
+    switch (type.getAttackType()) {
         case attack::AttackType::soldier: r = 9.f;  c = sf::Color(80, 200, 120);  break;
         case attack::AttackType::tank:    r = 13.f; c = sf::Color(210, 140, 40);  break;
         case attack::AttackType::balloon: r = 10.f; c = sf::Color(120, 180, 255); break;

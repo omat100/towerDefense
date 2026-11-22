@@ -9,7 +9,7 @@
 
 namespace sceneBuilder{
     struct Placement {
-        defense::DefenseType type;
+        defense::Block type;
         types::Pos positon;
     };
 
