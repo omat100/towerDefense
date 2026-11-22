@@ -47,11 +47,11 @@ namespace {
     std::unique_ptr<defense::Block> makeDefense(defense::DefenseType type, types::Pos pos) {
         switch (type) {
             case defense::DefenseType::wall:
-                return std::make_unique<defense::Wall>(pos.x, pos.y);
+                return std::make_unique<defense::Wall>(types::Levels::Level1, pos.x, pos.y);
             case defense::DefenseType::cannon:
-                return std::make_unique<defense::Cannon>(pos.x, pos.y);
+                return std::make_unique<defense::Cannon>(types::Levels::Level1, pos.x, pos.y);
             case defense::DefenseType::tower:
-                return std::make_unique<defense::Tower>(pos.x, pos.y);
+                return std::make_unique<defense::Tower>(types::Levels::Level1, pos.x, pos.y);
             // case defense::DefenseType::soldier:
             //     return std::make_unique<defense::Soldier>(pos.x, pos.y);
             case defense::DefenseType::townHall:

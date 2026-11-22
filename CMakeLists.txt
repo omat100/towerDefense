@@ -26,6 +26,9 @@ add_executable(TowerDefense
     src/sytems/Movement.cpp
     src/sytems/Vector.cpp
     src/types/GameObjects.cpp
+    src/base/UI/Screen.cpp
+    src/base/UI/SceneBuilderUI.cpp
+    src/base/SceneCreator.cpp
 )
 
 target_link_libraries(TowerDefense PRIVATE
