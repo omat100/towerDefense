@@ -138,3 +138,51 @@ void Renderer::draw(const defense::Block& unit) {
     drawHealthBar(window, pos, halfWidth * 2.f, yOffset,
                   unit.getHealth(), unit.getMaxHealth());
 }
+
+void Renderer::drawGhost(defense::DefenseType type, types::Pos pos, bool valid) {
+    auto col = [&](sf::Color c) {
+        if (!valid) c = sf::Color(255, 60, 60);
+        c.a = 130;
+        return c;
+    };
+    auto rect = [&](float w, float h, sf::Color c) {
+        sf::RectangleShape s({w, h});
+        s.setOrigin(w / 2.f, h / 2.f);
+        s.setPosition(pos.x, pos.y);
+        s.setFillColor(col(c));
+        window.draw(s);
+    };
+    auto circle = [&](float r, sf::Color c) {
+        sf::CircleShape s(r);
+        s.setOrigin(r, r);
+        s.setPosition(pos.x, pos.y);
+        s.setFillColor(col(c));
+        window.draw(s);
+    };
+
+    switch (type) {
+        case defense::DefenseType::wall:     rect(80.f, 80.f, sf::Color(60, 90, 200)); break;
+        case defense::DefenseType::cannon:   circle(25.f, sf::Color(210, 60, 60));     break;
+        case defense::DefenseType::tower:    rect(60.f, 60.f, sf::Color(150, 80, 200)); break;
+        case defense::DefenseType::soldier:  circle(12.f, sf::Color(90, 160, 220));    break;
+        case defense::DefenseType::townHall: rect(120.f, 80.f, sf::Color(220, 190, 70)); break;
+    }
+}
+
+void Renderer::drawGhost(attack::AttackType type, types::Pos pos, bool valid) {
+    float r = 9.f;
+    sf::Color c(80, 200, 120);
+    switch (type) {
+        case attack::AttackType::soldier: r = 9.f;  c = sf::Color(80, 200, 120);  break;
+        case attack::AttackType::tank:    r = 13.f; c = sf::Color(210, 140, 40);  break;
+        case attack::AttackType::balloon: r = 10.f; c = sf::Color(120, 180, 255); break;
+    }
+    if (!valid) c = sf::Color(255, 60, 60);
+    c.a = 130;
+
+    sf::CircleShape s(r);
+    s.setOrigin(r, r);
+    s.setPosition(pos.x, pos.y);
+    s.setFillColor(c);
+    window.draw(s);
+}
