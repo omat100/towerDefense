@@ -1,5 +1,4 @@
 #include "SceneCreator.hpp"
-#include "../SFML/Renderer.hpp"
 #include "../defense/Block.hpp"
 
 #include <iostream>
