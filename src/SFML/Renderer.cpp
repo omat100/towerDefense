@@ -139,7 +139,7 @@ void Renderer::draw(const defense::Block& unit) {
                   unit.getHealth(), unit.getMaxHealth());
 }
 
-void Renderer::drawGhost(defense::Block type, types::Pos pos, bool valid) {
+void Renderer::drawGhost(const defense::Block& type, types::Pos pos, bool valid) {
     auto col = [&](sf::Color c) {
         if (!valid) c = sf::Color(255, 60, 60);
         c.a = 130;
@@ -169,7 +169,7 @@ void Renderer::drawGhost(defense::Block type, types::Pos pos, bool valid) {
     }
 }
 
-void Renderer::drawGhost(attack::Block type, types::Pos pos, bool valid) {
+void Renderer::drawGhost(const attack::Block& type, types::Pos pos, bool valid) {
     float r = 9.f;
     sf::Color c(80, 200, 120);
     switch (type.getAttackType()) {

@@ -17,6 +17,6 @@ public:
 
     void draw(const attack::Block& unit);
     void draw(const defense::Block& unit);
-    void Renderer::drawGhost(defense::Block type, types::Pos pos, bool valid);
-    void Renderer::drawGhost(attack::Block type, types::Pos pos, bool valid);
+    void drawGhost(const defense::Block& type, types::Pos pos, bool valid);
+    void drawGhost(const attack::Block& type, types::Pos pos, bool valid);
 };

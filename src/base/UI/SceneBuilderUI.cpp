@@ -1,5 +1,11 @@
 #include "SceneBuilderUI.hpp"
-#include "../../defense/Block.hpp"
+
+// concrete defenses (names guessed, fix to match your files)
+#include "../../defense/Wall.hpp"
+#include "../../defense/Cannon.hpp"
+#include "../../defense/Tower.hpp"
+// #include "../../defense/Soldier.hpp"
+#include "../../defense/TownHall.hpp"
 
 #include <imgui.h>
 #include <imgui-SFML.h>
@@ -18,25 +24,40 @@ namespace {
         {defense::DefenseType::wall,     "wall",     40.f, 40.f},
         {defense::DefenseType::cannon,   "cannon",   25.f, 25.f},
         {defense::DefenseType::tower,    "tower",    30.f, 30.f},
-        {defense::DefenseType::soldier,  "soldier",  12.f, 12.f},
+        // {defense::DefenseType::soldier,  "soldier",  12.f, 12.f},
         {defense::DefenseType::townHall, "townHall", 60.f, 40.f},
     };
+    const int kTypeCount = sizeof(kTypes) / sizeof(kTypes[0]);
 
-    const TypeInfo &info(defense::DefenseType t) {
-        for (const auto &i : kTypes)
-            if (i.type == t) return i;
-        return kTypes[0];
+    int indexOf(defense::DefenseType t) {
+        for (int i = 0; i < kTypeCount; ++i)
+            if (kTypes[i].type == t) return i;
+        return 0;
     }
+
+    const TypeInfo &info(defense::DefenseType t) { return kTypes[indexOf(t)]; }
 
     bool overlap(const TypeInfo &a, types::Pos pa, const TypeInfo &b, types::Pos pb) {
         return std::abs(pa.x - pb.x) < a.halfW + b.halfW &&
                std::abs(pa.y - pb.y) < a.halfH + b.halfH;
     }
 
-    // >>> The ONE place that depends on how a Block is constructed. <<<
-    // Change this line to match your real constructor.
-    defense::Block makeBlock(defense::DefenseType type, types::Pos pos) {
-        return defense::Block(type, pos);
+    // >>> The ONE place that depends on the concrete defense constructors. <<<
+    // If your game already has a factory/spawn function, call that here instead.
+    std::unique_ptr<defense::Block> makeDefense(defense::DefenseType type, types::Pos pos) {
+        switch (type) {
+            case defense::DefenseType::wall:
+                return std::make_unique<defense::Wall>(pos.x, pos.y);
+            case defense::DefenseType::cannon:
+                return std::make_unique<defense::Cannon>(pos.x, pos.y);
+            case defense::DefenseType::tower:
+                return std::make_unique<defense::Tower>(pos.x, pos.y);
+            // case defense::DefenseType::soldier:
+            //     return std::make_unique<defense::Soldier>(pos.x, pos.y);
+            case defense::DefenseType::townHall:
+                return std::make_unique<defense::TownHall>(pos.x, pos.y);
+        }
+        return nullptr;
     }
 
     void drawGrid(sf::RenderWindow &window, int cell) {
@@ -58,11 +79,14 @@ namespace {
 namespace sceneBuilder {
 
     void clearScene(SceneData &data) {
-        for (Placement *p : data.defenses) delete p;
+        for (Placement *p : data.defenses) delete p;   // frees the Block too
         data.defenses.clear();
     }
 
-    SceneBuilderUI::SceneBuilderUI(SceneData &data) : data(data) {}
+    SceneBuilderUI::SceneBuilderUI(SceneData &data) : data(data) {
+        for (const auto &t : kTypes)
+            previews.push_back(makeDefense(t.type, types::Pos{0.f, 0.f}));
+    }
 
     types::Pos SceneBuilderUI::mouseWorld(sf::RenderWindow &window) const {
         const sf::Vector2f p = window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -78,24 +102,26 @@ namespace sceneBuilder {
     bool SceneBuilderUI::canPlace(defense::DefenseType type, types::Pos pos) const {
         const TypeInfo &a = info(type);
         for (const Placement *p : data.defenses) {
-            if (!p) continue;
-            if (overlap(a, pos, info(p->type.getDefenseType()), p->positon)) return false;
+            if (!p || !p->type) continue;
+            if (overlap(a, pos, info(p->type->getDefenseType()), p->positon)) return false;
         }
         return true;
     }
 
     void SceneBuilderUI::placeAt(types::Pos pos) {
-        if (!canPlace(selected, pos))
-            return;
-        data.defenses.push_back(new Placement{makeBlock(selected, pos), pos});
+        if (!canPlace(selected, pos)) return;
+
+        auto block = makeDefense(selected, pos);
+        if (!block) return;
+        data.defenses.push_back(new Placement{std::move(block), pos});
     }
 
     void SceneBuilderUI::removeAt(types::Pos pos) {
         // backwards so the most recently placed (topmost) one goes first
         for (int i = static_cast<int>(data.defenses.size()) - 1; i >= 0; --i) {
             Placement *p = data.defenses[i];
-            if (!p) continue;
-            const TypeInfo &t = info(p->type.getDefenseType());
+            if (!p || !p->type) continue;
+            const TypeInfo &t = info(p->type->getDefenseType());
             if (std::abs(pos.x - p->positon.x) <= t.halfW &&
                 std::abs(pos.y - p->positon.y) <= t.halfH) {
                 delete p;
@@ -155,8 +181,11 @@ namespace sceneBuilder {
                             px.x < static_cast<int>(window.getSize().x) &&
                             px.y < static_cast<int>(window.getSize().y);
         if (inside && !ImGui::GetIO().WantCaptureMouse) {
-            const types::Pos p = snap(mouseWorld(window));
-            renderer.drawGhost(selected, p, canPlace(selected, p));
+            const auto &preview = previews[indexOf(selected)];
+            if (preview) {
+                const types::Pos p = snap(mouseWorld(window));
+                renderer.drawGhost(*preview, p, canPlace(selected, p));
+            }
         }
     }
 
@@ -164,8 +193,8 @@ namespace sceneBuilder {
         std::ofstream out(path);
         if (!out) { status = "Save failed"; return; }
         for (const Placement *p : data.defenses) {
-            if (!p) continue;
-            out << info(p->type.getDefenseType()).name << ' '
+            if (!p || !p->type) continue;
+            out << info(p->type->getDefenseType()).name << ' '
                 << p->positon.x << ' ' << p->positon.y << '\n';
         }
         status = "Saved " + std::to_string(data.defenses.size()) + " items";
@@ -180,10 +209,10 @@ namespace sceneBuilder {
         float x, y;
         while (in >> name >> x >> y) {
             for (const auto &t : kTypes) {
-                if (name == t.name) {
-                    const types::Pos pos{x, y};
-                    loaded.push_back(new Placement{makeBlock(t.type, pos), pos});
-                }
+                if (name != t.name) continue;
+                const types::Pos pos{x, y};
+                auto block = makeDefense(t.type, pos);
+                if (block) loaded.push_back(new Placement{std::move(block), pos});
             }
         }
 
@@ -191,4 +220,5 @@ namespace sceneBuilder {
         data.defenses = std::move(loaded);
         status = "Loaded " + std::to_string(data.defenses.size()) + " items";
     }
+
 } // namespace sceneBuilder

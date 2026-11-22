@@ -1,7 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include <string>
+#include <vector>
 
 #include "../SceneCreator.hpp"
 
@@ -32,6 +34,9 @@ namespace sceneBuilder {
         bool snapOn = true;
         int cell = 40;
         std::string status;
+
+        // one throwaway Block per type, used only for the hover ghost
+        std::vector<std::unique_ptr<defense::Block>> previews;
     };
 
 } // namespace sceneBuilder

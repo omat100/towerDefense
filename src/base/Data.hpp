@@ -3,13 +3,15 @@
 #include "../defense/Block.hpp"
 #include "../types/Pos.hpp"
 
+#include <memory>
+
 // std
 #include <vector>
 #include <string>
 
 namespace sceneBuilder{
     struct Placement {
-        defense::Block type;
+        std::unique_ptr<defense::Block> type;
         types::Pos positon;
     };
 
