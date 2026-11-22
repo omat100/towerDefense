@@ -7,6 +7,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 
+set(SFML_STATIC_LIBRARIES FALSE)
+
+set(IMGUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third-party/imgui")
+add_subdirectory(third-party/imgui-sfml)
+
 add_executable(TowerDefense
     src/main.cpp
     src/Core/Game.cpp
@@ -27,4 +32,5 @@ target_link_libraries(TowerDefense PRIVATE
     sfml-graphics
     sfml-window
     sfml-system
+    ImGui-SFML::ImGui-SFML
 )
