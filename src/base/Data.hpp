@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../defense/DefenseType.hpp"
+#include "../defense/Block.hpp"
 #include "../types/Pos.hpp"
 
 // std
