@@ -22,7 +22,7 @@ We build it using CMAKE.
 1. Add sprites
 2. Make this a working game. with an effecient denfense and attack system.
 3. Currently we are searching for blocks linearly, which is bad performance wise, i need to make this spatial.
-4. Remove imgui and SFML and replace it by OpenGL or Vulkan. removing this may be tough cause i am not good at it (the ui stuff).
+4. Remove imgui and SFML and replace it with my own game engine. removing this may be tough cause i am not good at it (the ui stuff).
 5. Make the UI more game friendly, cause currenlty it looks corporate.
 
 ### CODE
@@ -46,7 +46,7 @@ They are virtual because we have Walls and Spells. Walls dont attack and Spells 
 This is another important namespace this has many functions which can be used by all other classes such as 
 ```cpp
 types::Pos directionVector(types::Pos start, types::Pos end);
-    float distance(types::Pos start, types::Pos end);
+float distance(types::Pos start, types::Pos end);
 ```
 
 there are numerous functions. The Main part of this is it gives Blocks intelligence and combat and they can be called like:
@@ -79,7 +79,7 @@ namespace sceneBuilder{
 }
 ```
 
-i know that this folder code is not well written but hopefully this would not be needed which i switch to OpenGL or Vulkan or something like pure SFML, well this does its job but the problem here is that it doen't look like it was built for a game.
+i know that this folder code is not well written but hopefully this would not be needed which i switch to my own engine or something like pure SFML, well this does its job but the problem here is that it doesn't look like it was built for a game.
 
 #### Release
 You may try out the game as i have created a pre release so far :)
