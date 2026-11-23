@@ -65,6 +65,6 @@ namespace attack {
             void setTarget(defense::Block *newTarget) { target = newTarget; }
             void clearTarget() { target = nullptr; isAttacking = false; }
 
-            void healthLost(int damage);
+            virtual void healthLost(int damage);
         };
 }

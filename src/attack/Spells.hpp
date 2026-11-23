@@ -40,5 +40,7 @@ namespace attack
                 for(defense::Block *defender : targets) systems::combatAttack(this, defender);
                 setHealth(0); // make it dead after one time use
             }
+            
+            void healthLost(int damage) override {};
     };
 } // namespace attack

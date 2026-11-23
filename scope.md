@@ -1,6 +1,3 @@
-### Highest priority
-pipeline all movements and combat
-
 ### Add sf::sprites
 This shall be done in SFML folder only
 
