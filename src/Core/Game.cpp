@@ -13,7 +13,7 @@
 #include "../defense/Tower.hpp"
 
 Game::Game()
-    : window(1000, 700, "My Game"),
+    : window(1000, 700, "Tower Defense"),
       renderer(window.getNativeWindow()) {
 
     // Attackers start on the left and walk towards the defenses.

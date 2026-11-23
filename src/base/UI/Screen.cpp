@@ -8,7 +8,9 @@
 void sceneBuilder::runScreen() {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Scene Builder");
     window.setFramerateLimit(60);
-    ImGui::SFML::Init(window);
+    if (!ImGui::SFML::Init(window)) {
+        return;
+    }
 
     Renderer renderer(window);
     SceneData data;
