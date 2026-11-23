@@ -27,6 +27,7 @@ We build it using CMAKE.
 
 ### CODE
 I think the code is very well written and quite understandable but still i will explain the major parts.
+
 ![project structure](image-1.png)
 
 All these folders contain their namespaces, for example attack consists of attack namespace.
@@ -79,6 +80,9 @@ namespace sceneBuilder{
 ```
 
 i know that this folder code is not well written but hopefully this would not be needed which i switch to OpenGL or Vulkan or something like pure SFML, well this does its job but the problem here is that it doen't look like it was built for a game.
+
+#### Release
+You may try out the game as i have created a pre release so far :)
 
 Author:
 
