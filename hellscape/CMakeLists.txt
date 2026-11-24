@@ -21,6 +21,7 @@ add_executable(Hellscape
     src/Graphics/Shader.cpp
     src/Renderer/Mesh.cpp
     src/Renderer/Renderer.cpp
+    src/Core/Transform.cpp
 )
 
 target_include_directories(Hellscape PRIVATE
