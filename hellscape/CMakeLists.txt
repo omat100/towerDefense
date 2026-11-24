@@ -19,7 +19,7 @@ target_include_directories(glad PUBLIC
 add_executable(Hellscape
     src/main.cpp
     src/Graphics/Shader.cpp
-    src/Renderer/Triangle.cpp
+    src/Renderer/Mesh.cpp
     src/Renderer/Renderer.cpp
 )
 

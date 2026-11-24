@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Renderer/Triangle.hpp"
+#include "Renderer/Mesh.hpp"
 #include "Graphics/Shader.hpp"
 
 struct GLFWwindow;
@@ -13,6 +13,6 @@ public:
     explicit Renderer(GLFWwindow* window);
 
     void beginFrame();
-    void draw(const Triangle& triangle, const Shader& shader);
+    void draw(const Mesh& mesh, const Shader& shader);
     void endFrame();
 };

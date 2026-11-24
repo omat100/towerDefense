@@ -1,12 +1,14 @@
+
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
 #include "Graphics/Shader.hpp"
-#include "Renderer/Triangle.hpp"
-
 #include "Renderer/Renderer.hpp"
+#include "Renderer/Mesh.hpp"
 
 #include <iostream>
+#include <vector>
+#include <string>
 
 const std::string vertexShaderSource = R"(
 #version 330 core
@@ -53,7 +55,26 @@ int main() {
 
     {
         Shader shader(vertexShaderSource, fragmentShaderSource);
-        Triangle triangle;
+
+        std::vector<float> triangleVertices = {
+            -0.5f, -0.5f, 0.0f,
+             0.5f, -0.5f, 0.0f,
+             0.0f,  0.5f, 0.0f
+        };
+
+        std::vector<float> rectangleVertices = {
+            -0.8f, -0.5f, 0.0f,
+            -0.2f, -0.5f, 0.0f,
+            -0.2f,  0.5f, 0.0f,
+
+            -0.8f, -0.5f, 0.0f,
+            -0.2f,  0.5f, 0.0f,
+            -0.8f,  0.5f, 0.0f
+        };
+
+        Mesh triangle(triangleVertices);
+        Mesh rectangle(rectangleVertices);
+
         Renderer renderer(window);
 
         while (!glfwWindowShouldClose(window)) {
@@ -61,6 +82,7 @@ int main() {
 
             renderer.beginFrame();
             renderer.draw(triangle, shader);
+            renderer.draw(rectangle, shader);
             renderer.endFrame();
         }
     }

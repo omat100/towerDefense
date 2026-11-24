@@ -9,9 +9,9 @@ void Renderer::beginFrame() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::draw(const Triangle& triangle, const Shader& shader) {
+void Renderer::draw(const Mesh& mesh, const Shader& shader) {
     shader.use();
-    triangle.draw();
+    mesh.draw();
 }
 
 void Renderer::endFrame() {
