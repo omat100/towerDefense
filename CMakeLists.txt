@@ -37,3 +37,15 @@ target_link_libraries(TowerDefense PRIVATE
     sfml-system
     ImGui-SFML::ImGui-SFML
 )
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(TowerDefense PRIVATE
+        -fsanitize=address
+        -fno-omit-frame-pointer
+        -g
+    )
+
+    target_link_options(TowerDefense PRIVATE
+        -fsanitize=address
+    )
+endif()
