@@ -4,6 +4,8 @@
 #include "Graphics/Shader.hpp"
 #include "Renderer/Triangle.hpp"
 
+#include "Renderer/Renderer.hpp"
+
 #include <iostream>
 
 const std::string vertexShaderSource = R"(
@@ -52,17 +54,14 @@ int main() {
     {
         Shader shader(vertexShaderSource, fragmentShaderSource);
         Triangle triangle;
+        Renderer renderer(window);
 
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();
 
-            glClearColor(0.08f, 0.08f, 0.10f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
-
-            shader.use();
-            triangle.draw();
-
-            glfwSwapBuffers(window);
+            renderer.beginFrame();
+            renderer.draw(triangle, shader);
+            renderer.endFrame();
         }
     }
 

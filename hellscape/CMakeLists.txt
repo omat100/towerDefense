@@ -20,6 +20,7 @@ add_executable(Hellscape
     src/main.cpp
     src/Graphics/Shader.cpp
     src/Renderer/Triangle.cpp
+    src/Renderer/Renderer.cpp
 )
 
 target_include_directories(Hellscape PRIVATE
