@@ -37,7 +37,7 @@ namespace attack
             // need to start adding levels
             void attack(float deltatime) override {
                 std::vector<defense::Block *> targets = systems::findDefenseRadius(this, static_cast<float>(spellMap[level].second));
-                for(defense::Block *defender : targets) systems::combatAttack(this, defender);
+                for(defense::Block *defender : targets) systems::Combat::combatAttack(this, defender);
                 setHealth(0); // make it dead after one time use
             }
             

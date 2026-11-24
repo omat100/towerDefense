@@ -45,6 +45,6 @@ void attack::Block::attack(float deltaTime){
     attackTimer += deltaTime;
     if(attackTimer >= attackInterval){
         attackTimer = 0.f;
-        systems::combatAttack(this, target);
+        systems::Combat::combatAttack(this, target);
     }
 }

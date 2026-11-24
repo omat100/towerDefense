@@ -1,6 +1,6 @@
 #include "Combat.hpp"
 
-void systems::combatAttack(attack::Block *attacker, defense::Block *defender){
+void systems::Combat::combatAttack(attack::Block *attacker, defense::Block *defender){
     if(!attacker || !defender) return;
 
     if(!attacker->isAlive() || !defender->isAlive()){
@@ -16,7 +16,7 @@ void systems::combatAttack(attack::Block *attacker, defense::Block *defender){
     }
 }
 
-void systems::combatDefense(attack::Block *attacker, defense::Block *defender){
+void systems::Combat::combatDefense(attack::Block *attacker, defense::Block *defender){
     if(!attacker || !defender) return;
 
     if(!attacker->isAlive() || !defender->isAlive()){

@@ -6,6 +6,10 @@
 
 namespace systems{
     // damage code will be written here
-    void combatAttack(attack::Block *attacker, defense::Block *defender);
-    void combatDefense(attack::Block *attacker, defense::Block *defender);
+    class Combat{
+        public:
+        static void combatAttack(attack::Block *attacker, defense::Block *defender);
+        static void combatDefense(attack::Block *attacker, defense::Block *defender);
+
+    };
 } // namespace systems
