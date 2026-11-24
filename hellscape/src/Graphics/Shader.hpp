@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <glm/glm.hpp>
 
 class Shader {
 private:
@@ -21,6 +22,7 @@ public:
 
     Shader(const Shader&) = delete;
     Shader& operator=(const Shader&) = delete;
-
+    
+    void setMat4(const std::string& name, const glm::mat4& matrix) const;
     void use() const;
 };

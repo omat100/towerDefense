@@ -2,6 +2,7 @@
 
 #include "Renderer/Mesh.hpp"
 #include "Graphics/Shader.hpp"
+#include "Core/Transform.hpp"
 
 struct GLFWwindow;
 
@@ -13,6 +14,6 @@ public:
     explicit Renderer(GLFWwindow* window);
 
     void beginFrame();
-    void draw(const Mesh& mesh, const Shader& shader);
+    void draw(const Mesh& mesh, const Shader& shader, const Transform& transform);
     void endFrame();
 };

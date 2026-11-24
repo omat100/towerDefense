@@ -9,8 +9,9 @@ void Renderer::beginFrame() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::draw(const Mesh& mesh, const Shader& shader) {
+void Renderer::draw(const Mesh& mesh, const Shader& shader, const Transform& transform) {
     shader.use();
+    shader.setMat4("model", transform.getModelMatrix());
     mesh.draw();
 }
 

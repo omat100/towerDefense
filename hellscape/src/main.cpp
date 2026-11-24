@@ -5,6 +5,7 @@
 #include "Graphics/Shader.hpp"
 #include "Renderer/Renderer.hpp"
 #include "Renderer/Mesh.hpp"
+#include "Core/Transform.hpp"
 
 #include <iostream>
 #include <vector>
@@ -14,8 +15,10 @@ const std::string vertexShaderSource = R"(
 #version 330 core
 layout (location = 0) in vec3 aPos;
 
+uniform mat4 model;
+
 void main() {
-    gl_Position = vec4(aPos, 1.0);
+    gl_Position = model * vec4(aPos, 1.0);
 }
 )";
 
@@ -75,14 +78,25 @@ int main() {
         Mesh triangle(triangleVertices);
         Mesh rectangle(rectangleVertices);
 
+        Transform triangleTransform;
+        triangleTransform.setPosition(-0.4f, 0.0f);
+        triangleTransform.setScale(0.5f, 0.5f);
+
+        Transform rectangleTransform;
+        rectangleTransform.setPosition(0.4f, 0.0f);
+        rectangleTransform.setScale(0.7f, 0.7f);
+        rectangleTransform.setRotation(20.0f);
+
         Renderer renderer(window);
 
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();
 
             renderer.beginFrame();
-            renderer.draw(triangle, shader);
-            renderer.draw(rectangle, shader);
+
+            renderer.draw(triangle, shader, triangleTransform);
+            renderer.draw(rectangle, shader, rectangleTransform);
+
             renderer.endFrame();
         }
     }
