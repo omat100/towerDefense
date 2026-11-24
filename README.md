@@ -20,13 +20,15 @@ We build it using CMAKE.
 
 ### Future Plans
 1. Add sprites
-2. Make this a working game. with an effecient denfense and attack system.
+2. Make this a working game. with an efficient defense and attack system.
 3. Currently we are searching for blocks linearly, which is bad performance wise, i need to make this spatial.
 4. Remove imgui and SFML and replace it with my own game engine. removing this may be tough cause i am not good at it (the ui stuff).
-5. Make the UI more game friendly, cause currenlty it looks corporate.
+5. Make the UI more game friendly, cause currently it looks corporate.
 
 ### CODE
 I think the code is very well written and quite understandable but still i will explain the major parts.
+
+Some Implementations have changed as work is still going on but the basic idea is the same.
 
 ![project structure](image-1.png)
 
