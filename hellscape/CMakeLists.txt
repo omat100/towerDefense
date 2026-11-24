@@ -13,16 +13,22 @@ add_library(glad STATIC
 )
 
 target_include_directories(glad PUBLIC
-    third-party/glad/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third-party/glad/include
 )
 
 add_executable(Hellscape
     src/main.cpp
     src/Graphics/Shader.cpp
-    src/Renderer/triangle.cpp
+    src/Renderer/Triangle.cpp
 )
 
 target_include_directories(Hellscape PRIVATE
-    include
-    src
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_link_libraries(Hellscape PRIVATE
+    glfw
+    OpenGL::GL
+    glad
 )
