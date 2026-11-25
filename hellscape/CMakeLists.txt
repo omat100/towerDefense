@@ -22,6 +22,7 @@ add_executable(Hellscape
     src/Renderer/Mesh.cpp
     src/Renderer/Renderer.cpp
     src/Core/Transform.cpp
+    src/Core/Camera.cpp
 )
 
 target_include_directories(Hellscape PRIVATE

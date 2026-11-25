@@ -1,4 +1,5 @@
 #include "Renderer/Renderer.hpp"
+#include "Core/Camera.hpp"
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
@@ -9,9 +10,17 @@ void Renderer::beginFrame() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::draw(const Mesh& mesh, const Shader& shader, const Transform& transform) {
+void Renderer::draw(
+    const Mesh& mesh,
+    const Shader& shader,
+    const Transform& transform,
+    const Camera& camera
+) {
     shader.use();
+
     shader.setMat4("model", transform.getModelMatrix());
+    shader.setMat4("projection", camera.getProjectionMatrix());
+
     mesh.draw();
 }
 

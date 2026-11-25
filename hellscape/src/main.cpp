@@ -1,4 +1,3 @@
-
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
@@ -6,6 +5,7 @@
 #include "Renderer/Renderer.hpp"
 #include "Renderer/Mesh.hpp"
 #include "Core/Transform.hpp"
+#include "Core/Camera.hpp"
 
 #include <iostream>
 #include <vector>
@@ -16,9 +16,10 @@ const std::string vertexShaderSource = R"(
 layout (location = 0) in vec3 aPos;
 
 uniform mat4 model;
+uniform mat4 projection;
 
 void main() {
-    gl_Position = model * vec4(aPos, 1.0);
+    gl_Position = projection * model * vec4(aPos, 1.0);
 }
 )";
 
@@ -56,37 +57,38 @@ int main() {
         return -1;
     }
 
+    glViewport(0, 0, 1280, 720);
+
     {
         Shader shader(vertexShaderSource, fragmentShaderSource);
 
         std::vector<float> triangleVertices = {
-            -0.5f, -0.5f, 0.0f,
-             0.5f, -0.5f, 0.0f,
-             0.0f,  0.5f, 0.0f
+            -50.0f, -50.0f, 0.0f,
+             50.0f, -50.0f, 0.0f,
+              0.0f,  50.0f, 0.0f
         };
 
         std::vector<float> rectangleVertices = {
-            -0.8f, -0.5f, 0.0f,
-            -0.2f, -0.5f, 0.0f,
-            -0.2f,  0.5f, 0.0f,
+            -50.0f, -50.0f, 0.0f,
+             50.0f, -50.0f, 0.0f,
+             50.0f,  50.0f, 0.0f,
 
-            -0.8f, -0.5f, 0.0f,
-            -0.2f,  0.5f, 0.0f,
-            -0.8f,  0.5f, 0.0f
+            -50.0f, -50.0f, 0.0f,
+             50.0f,  50.0f, 0.0f,
+            -50.0f,  50.0f, 0.0f
         };
 
         Mesh triangle(triangleVertices);
         Mesh rectangle(rectangleVertices);
 
         Transform triangleTransform;
-        triangleTransform.setPosition(-0.4f, 0.0f);
-        triangleTransform.setScale(0.5f, 0.5f);
+        triangleTransform.setPosition(300.0f, 300.0f);
 
         Transform rectangleTransform;
-        rectangleTransform.setPosition(0.4f, 0.0f);
-        rectangleTransform.setScale(0.7f, 0.7f);
+        rectangleTransform.setPosition(800.0f, 300.0f);
         rectangleTransform.setRotation(20.0f);
 
+        Camera camera(1280.0f, 720.0f);
         Renderer renderer(window);
 
         while (!glfwWindowShouldClose(window)) {
@@ -94,8 +96,8 @@ int main() {
 
             renderer.beginFrame();
 
-            renderer.draw(triangle, shader, triangleTransform);
-            renderer.draw(rectangle, shader, rectangleTransform);
+            renderer.draw(triangle, shader, triangleTransform, camera);
+            renderer.draw(rectangle, shader, rectangleTransform, camera);
 
             renderer.endFrame();
         }
