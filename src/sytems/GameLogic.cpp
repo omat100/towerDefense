@@ -26,5 +26,24 @@ float systems::GameLogic::damageCount(){
     );
     if(count < 0) throw std::logic_error("Count less than zero");
     if(count > types::defenders.size()) throw std::logic_error("Count more than the defenders");
-    return 100 - static_cast<float>(count)/types::defenders.size(); // float/size_t = float
+    return static_cast<float>(count)/types::defenders.size(); // float/size_t = float
+}
+
+int systems::GameLogic::starCount(){
+    auto it = std::find_if(
+        types::defenders.begin(), types::defenders.end(),
+        [](defense::Block* b)
+        {
+            return b->getDefenseType() == defense::DefenseType::townHall;
+        }
+    );
+
+    try{
+        defense::Block* townHall = *it;
+        int otherTwoStars = static_cast<int>(damageCount()/50);
+        return townHall->isAlive() + otherTwoStars;
+    }
+    catch(int error){
+        throw std::runtime_error("No townhall found");
+    }
 }

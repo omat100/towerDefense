@@ -10,5 +10,6 @@ namespace systems {
     class GameLogic{
         static bool isValidBase();
         static float damageCount();
+        static int starCount();
     };
 }
