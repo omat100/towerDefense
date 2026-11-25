@@ -7,6 +7,8 @@
 #include "../defense/Block.hpp"
 
 namespace systems {
-    bool isValidBase();
-    int starCount();
+    class GameLogic{
+        static bool isValidBase();
+        static float damageCount();
+    };
 }
