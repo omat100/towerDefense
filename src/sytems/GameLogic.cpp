@@ -26,5 +26,5 @@ float systems::GameLogic::damageCount(){
     );
     if(count < 0) throw std::logic_error("Count less than zero");
     if(count > types::defenders.size()) throw std::logic_error("Count more than the defenders");
-    return static_cast<float>(count)/types::defenders.size(); // float/size_t = float
+    return 100 - static_cast<float>(count)/types::defenders.size(); // float/size_t = float
 }
