@@ -28,6 +28,10 @@ namespace systems
     defense::Block *findClosestDefense(attack::Block *attacker);
     attack::Block *findClosestAttack(defense::Block *defender);
     std::vector<defense::Block*> findDefenseRadius(attack::Block *attacker, float radius);
+    template<typename From, typename To>
+    To *findClosest(From *opponent);
     // maybe used for motors
     std::vector<attack::Block*> findAttackRadius(defense::Block *defender, float radius);
 } // namespace systems
+
+#include "Intelligence.tpp"
