@@ -16,12 +16,12 @@ namespace loot
             int currStorage;
 
         protected:
-            Block(LootType type, int health, int maxHealth, int maxStorage, int currStorage, float x, float y)
-            : GameObject{x, y}, type{type}, health{health}, maxHealth{maxHealth},
+            Block(LootType type, int maxHealth, int maxStorage, int currStorage, float x, float y)
+            : GameObject{x, y}, type{type}, health{maxHealth}, maxHealth{maxHealth},
             maxStorage{maxStorage}, currStorage{currStorage} {}
 
         public:
-            void update(float deltaTime) override;
+            void update(float deltaTime) override {};
 
             LootType getLootType() const { return type; }
             
